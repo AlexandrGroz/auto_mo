@@ -1,0 +1,17 @@
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+# Загрузка данных из файла или получение их с помощью API
+btc_df_train = pd.read_csv('train/bitcoin_prices_train.csv')
+btc_df_test = pd.read_csv('train/bitcoin_prices_test.csv')
+
+X_train = btc_df_train.drop('Volume', axis=1)
+X_test = btc_df_test.drop('Volume', axis=1)
+y_train = btc_df_train['Volume']
+y_test = btc_df_test['Volume']
+
+# Масштабирование данных (SCALE)
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
