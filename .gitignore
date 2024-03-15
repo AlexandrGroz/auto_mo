@@ -1,0 +1,9 @@
+
+test/X_test.csv
+test/y_test.csv
+test/bitcoin_prices_test.csv
+train/y_train.csv
+train/X_train.csv
+train/bitcoin_prices_train.csv
+test/bitcoin_prices_test.csv
+train/bitcoin_prices_train.csv
