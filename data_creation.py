@@ -17,7 +17,14 @@ btc_prices = binance.fetch_ohlcv('BTC/USDT', timeframe='1d', since=since_timesta
 btc_df = pd.DataFrame(btc_prices, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
 
 # Преобразование временных меток
-btc_df['timestamp'] = pd.to_datetime(btc_df['timestamp'], unit='ms')
+btc_df['timestamp'] = pd.to_datetime(btc_df['timestamp'])
+
+btc_df['year'] = btc_df['timestamp'].dt.year
+btc_df['month'] = btc_df['timestamp'].dt.month
+btc_df['day'] = btc_df['timestamp'].dt.day
+
+# Drop the original 'timestamp' column
+btc_df.drop(columns=['timestamp'], inplace=True)
 
 # Разделение данных на обучающий (train) и тестовый (test) наборы
 train_df, test_df = train_test_split(btc_df, test_size=0.2, shuffle=True, random_state=42)
