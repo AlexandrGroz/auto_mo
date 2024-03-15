@@ -1,16 +1,31 @@
-# This is a sample Python script.
+import ccxt
+import pandas as pd
+import random
+from sklearn.model_selection import train_test_split
+import os
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Создание объекта для работы с API Binance
+binance = ccxt.binance()
 
+# Генерация случайной временной метки since с 2015 по 2023 год
+since_timestamp = random.randint(1420070400000, 1704067200000)  # от 1 января 2015 года в миллисекундах до 1 января 2024 года
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Получение исторических данных о ценах на биткоин
+btc_prices = binance.fetch_ohlcv('BTC/USDT', timeframe='1d', since=since_timestamp)
 
+# Преобразование данных в DataFrame
+btc_df = pd.DataFrame(btc_prices, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Преобразование временных меток
+btc_df['timestamp'] = pd.to_datetime(btc_df['timestamp'], unit='ms')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Разделение данных на обучающий (train) и тестовый (test) наборы
+train_df, test_df = train_test_split(btc_df, test_size=0.2, shuffle=True, random_state=42)
+
+# Создание папок train и test, если они еще не существуют
+os.makedirs('train', exist_ok=True)
+os.makedirs('test', exist_ok=True)
+
+# Сохранение данных в папки train и test
+train_df.to_csv('train/bitcoin_prices_train.csv', index=False)
+test_df.to_csv('test/bitcoin_prices_test.csv', index=False)
