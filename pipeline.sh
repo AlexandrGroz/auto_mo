@@ -1,16 +1,13 @@
 #!/bin/bash
 
 # Создать датасет
-bash data_creation.py
+python3 data_creation.py
 
 # Предобрабатываем данные
-bash model_preparation.py
+python3 model_preprocessing.py
 
 # Обучение модели
-bash model_preprocessing.py
-
-# Обучение модели
-bash model_preparation.py
+python3 model_preparation.py
 
 # Проверка модели
-bash model_testing.py
+python3 model_testing.py
