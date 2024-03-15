@@ -15,3 +15,11 @@ scaler = StandardScaler()
 scaler.fit(X_train)
 X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
+
+
+
+# Сохранение новых данных в папки train и test
+columns = ['open', 'high', 'low', 'close', 'year', 'month', 'day']
+
+pd.DataFrame(X_train, columns=columns).to_csv('train/preprocessing_bitcoin_prices_train.csv', index=False)
+pd.DataFrame(X_test, columns=columns).to_csv('test/preprocessing_bitcoin_prices_test.csv', index=False)
