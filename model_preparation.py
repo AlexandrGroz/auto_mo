@@ -1,3 +1,5 @@
+import warnings
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import GridSearchCV
 import pandas as pd
@@ -18,7 +20,9 @@ grid_model = GridSearchCV(estimator=base_elastic_model,
 X_train = pd.read_csv('train/X_train.csv')
 y_train = pd.read_csv('train/y_train.csv')
 
-grid_model.fit(X_train, y_train)
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=ConvergenceWarning)
+    grid_model.fit(X_train, y_train)
 
 # Сохранение модели
 with open('trained_model.pkl', 'wb') as f:
