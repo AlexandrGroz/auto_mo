@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 import warnings
+import numpy as np
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import GridSearchCV
