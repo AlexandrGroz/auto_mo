@@ -1,9 +1,9 @@
+import pandas as pd
+import pickle
 import warnings
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import GridSearchCV
-import pandas as pd
-import pickle
 
 
 base_elastic_model = ElasticNet()
